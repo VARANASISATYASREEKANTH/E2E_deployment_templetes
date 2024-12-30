@@ -1,0 +1,135 @@
+# Jenkins Job: Poll, Build, and Unit Test Python Code on `feature1` Branch
+
+This guide explains how to create a Jenkins job that polls a specific branch (`feature1`) in a Git repository, builds the code, and runs unit tests using Python.
+
+---
+
+## Prerequisites
+
+1. **Jenkins Setup**:
+   - Jenkins is installed and running.
+   - Git plugin is installed for version control system (VCS) integration.
+   - Python is installed on the Jenkins agent machine.
+   - Required Python dependencies are listed in `requirements.txt`.
+
+2. **Git Repository**:
+   - Ensure the repository has a branch named `feature1`.
+   - The repository includes Python source files and unit tests (e.g., in a `tests` directory).
+
+---
+
+## Steps to Create the Jenkins Job
+
+### 1. Create a New Job
+1. Open the Jenkins dashboard.
+2. Click on **New Item**.
+3. Enter a job name, e.g., `poll_feature1_branch`.
+4. Select **Freestyle Project** and click **OK**.
+
+---
+
+### 2. Configure Source Code Management
+1. In the job configuration page:
+   - Under **Source Code Management**, select **Git**.
+   - Enter the **Repository URL**, e.g.:
+     ```bash
+     https://github.com/your-username/your-repository.git
+     ```
+   - Add credentials if necessary (e.g., GitHub token or SSH key).
+   - In **Branches to Build**, specify the branch:
+     ```bash
+     origin/feature1
+     ```
+
+---
+
+### 3. Set Up Polling
+1. Under **Build Triggers**, select **Poll SCM**.
+2. In the **Schedule** field, add a cron-like expression to specify the polling interval. For example:
+   ```bash
+   H/5 * * * *
+This polls the repository every 5 minutes. Adjust as needed.
+4. Add Build Steps
+Step 4.1: Install Dependencies
+Add a Build Step > Execute Shell.
+Add the following commands to set up the Python environment:
+bash
+Copy code
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+Step 4.2: Run Unit Tests
+Add another Build Step > Execute Shell.
+Add the following command to discover and run unit tests:
+bash
+Copy code
+python -m unittest discover -s tests
+5. Configure Post-Build Actions
+Install the JUnit Plugin in Jenkins (if not already installed).
+
+Add Publish JUnit test result report as a post-build action.
+
+Specify the test result file pattern (if applicable):
+
+bash
+Copy code
+**/test-results.xml
+(Optional) Configure email notifications for build/test failures using Email Notification.
+
+Trigger the Job Programmatically (Optional)
+You can trigger the Jenkins job programmatically using Python. Below is an example Python script to trigger the job:
+
+python
+Copy code
+import requests
+
+# Jenkins credentials
+JENKINS_URL = "http://your-jenkins-url"
+JOB_NAME = "poll_feature1_branch"
+USERNAME = "your-username"
+API_TOKEN = "your-api-token"
+
+# Trigger URL
+trigger_url = f"{JENKINS_URL}/job/{JOB_NAME}/build"
+
+# Trigger the job
+response = requests.post(trigger_url, auth=(USERNAME, API_TOKEN))
+
+if response.status_code == 201:
+    print("Jenkins job triggered successfully!")
+else:
+    print(f"Failed to trigger Jenkins job. Status code: {response.status_code}, Response: {response.text}")
+Testing the Job
+Save the job configuration in Jenkins.
+Manually trigger the job from Jenkins to ensure everything is set up correctly.
+Verify that:
+The feature1 branch is polled, checked out, and built successfully.
+Unit tests run correctly, and results are displayed in Jenkins.
+Notes
+Dynamic Branches: If multiple feature branches exist, use a parameterized build to pass the branch name dynamically.
+Test Reporting: Customize the unittest command to generate JUnit-compatible XML reports for better visualization in Jenkins.
+Python Environment: Ensure the Jenkins agent machine has Python installed and accessible via the python or python3 command.
+Let me know if you need additional customization! 😊
+
+yaml
+Copy code
+
+---
+
+### How to Save the File:
+1. Copy the content above into a file named `README.md`.
+2. Place this file in the root of your GitHub repository.
+
+This `README.md` file will contain both instructions for setting up the Jenkins job and the Python script needed to trigger the Jenkins job programmatically.
+
+
+
+
+
+
+
+
+
+
+
+
