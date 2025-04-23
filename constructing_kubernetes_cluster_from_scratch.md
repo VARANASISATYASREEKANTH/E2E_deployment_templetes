@@ -262,3 +262,32 @@ To use this:
 - **Operator Pattern**: Application-specific controllers
 - **CRD Management**: Versioned custom resources
 - **Frameworks**: `Kubebuilder`, `Operator SDK`
+
+
+# 3. List of supporting tools and their use cases
+
+| Tool Name                | Category                  | Use Case                                                                 | Type       |
+|-------------------------|---------------------------|-------------------------------------------------------------------------|------------|
+| Horizontal Pod Autoscaler (HPA) | Auto-scaling       | Scales pods horizontally based on CPU/memory metrics                   | Native     |
+| Vertical Pod Autoscaler (VPA)   | Auto-scaling       | Adjusts pod resource requests/limits vertically                        | Native     |
+| Cluster Autoscaler       | Cluster Scaling    | Automatically adjusts cluster node count based on demand               | OSS        |
+| KEDA (Kubernetes Event-Driven Autoscaler) | Event Scaling | Scales workloads based on external metrics (e.g., Kafka, Redis queue) | OSS        |
+| Prometheus               | Metrics Collection | Provides custom metrics for scaling decisions                          | OSS        |
+| Kubernetes Metrics Server | Metrics Collection | Collects core resource metrics (CPU/Memory) for HPA                    | Native     |
+| Goldilocks               | Resource Optimization | Analyzes and recommends VPA configurations                            | OSS        |
+| Karpenter                | Node Provisioning   | Fast node provisioning for cloud environments                          | OSS (AWS)  |
+| OpenCost                 | Cost Management     | Tracks scaling-related infrastructure costs                            | OSS        |
+| Istio                    | Service Mesh        | Enables intelligent traffic routing during scaling                     | OSS        |
+| Linkerd                  | Service Mesh        | Lightweight traffic management for scaled services                     | OSS        |
+| Krane                    | Resource Analysis   | Visualizes resource requests vs actual usage                           | OSS        |
+| Kubecost                 | Cost Optimization   | Shows cost implications of scaling decisions                           | Commercial |
+| K9s                      | Cluster Monitoring  | Real-time visualization of scaling operations                          | OSS        |
+| Chaos Mesh               | Resilience Testing  | Tests cluster stability during scaling events                          | OSS        |
+| Argo Rollouts            | Progressive Delivery | Manages gradual scaling of deployments                                | OSS        |
+| Descheduler              | Resource Optimization | Rebalances pods across nodes after scaling                           | Native     |
+| Node Feature Discovery   | Hardware Scaling    | Scales workloads to nodes with specific hardware features              | OSS        |
+| Kube-state-metrics       | Cluster Monitoring  | Exposes cluster-state metrics for scaling decisions                    | OSS        |
+| Grafana                  | Metrics Visualization | Creates dashboards for scaling metrics analysis                       | OSS        |
+| Pulumi/Crossplane        | Infrastructure Scaling | Automates cloud resource provisioning for scaling                    | OSS        |
+| Elastic GPU Manager      | GPU Scaling          | Scales GPU-accelerated workloads                                      | OSS        |
+| Volcano                  | Batch Scaling        | Scales batch workloads and big data jobs                              | OSS        |
